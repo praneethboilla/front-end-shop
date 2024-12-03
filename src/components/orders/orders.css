@@ -1,0 +1,200 @@
+/* Main container for orders page */
+.orders-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Title styling */
+.orders-container h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Error message styling */
+.order-error-message {
+    color: #d9534f;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Loading message */
+.orders-container p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Styling for the order list */
+.orders-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Order container */
+.order-container {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #fff;
+    border-radius: 8px;
+    margin: 15px 0;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    flex-wrap: wrap;
+}
+
+/* Hover effect for orders */
+.order-container:hover {
+    transform: scale(1.02);
+}
+
+/* Order header (Order ID) */
+.order-header {
+    font-size: 1.2rem;
+    color: rgba(35, 35, 35, 0.76);
+    margin-bottom: 10px;
+    flex-basis: 100%;
+}
+
+.order-total{
+    display: flex;
+}
+
+/* Product details container */
+.product-order-details {
+    display: flex;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* Product image styling */
+.product-order-details img {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+/* Product info styling */
+.product-details {
+    max-width: 800px;
+}
+
+/* Product name styling */
+.product-details h3 {
+    font-size: 1.3rem;
+    color: #007bff;
+    margin: 5px 0;
+}
+/* Styling for empty orders list */
+.orders-container p {
+    font-size: 1rem;
+    color: black;
+    text-align: start;
+    margin-top: 10px;
+}
+
+/* ----- Responsive Styles ----- */
+
+/* For tablets (max width: 768px) */
+@media (max-width: 768px) {
+    .orders-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .order-header {
+        font-size: 1rem;
+    }
+
+    .order-total h3{
+        font-size: 1rem;
+    }
+    
+    .order-info h3 {
+        font-size: 1rem;
+    }
+
+    .order-info p {
+        font-size: 0.9rem;
+    }
+
+    .order-container {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        background-color: rgba(128, 128, 128, 0.118);
+    }
+
+    .product-order-details img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .product-details {
+        margin-top: 10px;
+    }
+}
+
+/* For mobile (max width: 480px) */
+@media (max-width: 480px) {
+    .orders-container {
+        padding: 10px;
+    }
+
+    .orders-container h1 {
+        font-size: 1.2rem;
+    }
+
+    .order-header {
+        font-size: 1rem;
+    }
+
+    .order-total h3{
+        font-size: 1rem;
+    }
+
+    .order-info h3 {
+        font-size: 1rem;
+    }
+
+    .order-info p {
+        font-size: 0.8rem;
+    }
+
+    /* Stack and center the order container */
+    .order-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 15px;
+        box-shadow: none;
+        margin-top: 15px;
+        background-color: rgba(128, 128, 128, 0.118);
+    }
+
+    .product-order-details img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .product-details {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .product-details h3 {
+        font-size: 1rem;
+    }
+}
+

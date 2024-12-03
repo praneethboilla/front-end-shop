@@ -1,0 +1,31 @@
+.carousel-container {
+    width: 100%; 
+    margin: 0 auto; 
+    background-color: whitesmoke; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: auto;
+    max-height: 90vh; /* Maintain aspect ratio */
+    object-fit: cover; 
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .carousel-image:hover {
+    transform: scale(1.05); 
+  }
+  .slick-dots {
+    bottom: 10px; 
+  }
+  
+  .slick-dots li button:before {
+    font-size: 12px; 
+    color: gray; 
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color: #ff6347; 
+  }
+  

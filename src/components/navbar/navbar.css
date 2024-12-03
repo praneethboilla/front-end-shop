@@ -1,0 +1,117 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-logo h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links li {
+  display: inline;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #4CAF50;  /* Green color on hover */
+}
+
+/* Styling for active links using NavLink */
+.navbar-links a.active-link {
+  color: #FF6347; /* Change this to the color you want for the active link */
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 5px 0; /* Adds padding to highlight active link */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-logo h2 {
+    font-size: 20px; /* Reduce logo size for smaller screens */
+  }
+
+  /* The navbar links should be hidden by default on mobile */
+  .navbar-links {
+    display: none;
+    width: 100%;
+    text-align: left;
+    padding: 10px 0;
+    gap: 0;
+    flex-direction: column;
+  }
+
+  .navbar-links li {
+    padding: 10px 20px;
+    width: 100%;
+    border-bottom: 1px solid #444; /* Divider between links */
+  }
+
+  /* Hamburger Menu Icon */
+  .navbar-toggle {
+    display: block;
+    cursor: pointer;
+    margin-left: auto; 
+  }
+
+  .navbar-toggle div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px auto;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  /* Show the navbar when the hamburger menu is clicked */
+  .navbar-links.show {
+    display: flex;
+  }
+
+  /* Rotate the hamburger icon when the menu is open */
+  .navbar-toggle.open div:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+  }
+
+  .navbar-toggle.open div:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar-toggle.open div:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+  }
+}

@@ -1,0 +1,74 @@
+.about-container {
+    font-family: 'Arial', sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.about-header h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.about-header p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.about-description,
+.about-mission,
+.about-values {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-description h2,
+.about-mission h2,
+.about-values h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.about-description p,
+.about-mission p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.about-values ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.about-values li {
+    font-size: 1rem;
+    color: #555;
+    margin: 10px 0;
+}
+
+.about-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1rem;
+    color: #888;
+}
+
+.about-footer a {
+    color: #2d72d9;
+    text-decoration: none;
+    font-weight: bold;
+}

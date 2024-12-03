@@ -1,0 +1,198 @@
+/* General container for cart */
+.cart-container {
+    display: flex;
+    align-items: center;
+    /* Aligns items horizontally centered */
+    justify-content: space-around;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.cart-name {
+    margin-top: 10px;
+}
+
+/* Cart item layout */
+.cart-item {
+    display: flex;
+    gap: 20px;
+}
+
+/* Image style */
+.cart-item-image {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Cart item details (name and price) */
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-top: 10px;
+    /* Takes available space next to the image */
+}
+
+.cart-item-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.cart-item-price {
+    font-size: 16px;
+    color: rgb(17, 120, 17);
+    align-self: flex-start;
+}
+
+/* Quantity selector */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    /* Centers quantity selector buttons */
+}
+
+.quantity-button {
+    padding: 8px 12px;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    background-color: coral;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quantity-button:hover {
+    background-color: #ddd;
+}
+
+.quantity-input {
+    width: 60px;
+    padding: 8px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #4caf50;
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Button for placing the order */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+    /* Fixed width for the order button */
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 15px;
+        /* flex-direction: column; */
+        /* Stack the items vertically on smaller screens */
+        /* align-items: stretch; */
+        /* Stretch items to fit container width */
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        /* Center text in smaller layouts */
+    }
+
+    .cart-item-details {
+        align-items: center;
+        /* Center the name and price under image */
+    }
+
+    .quantity-selector {
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .quantity-button {
+        padding: 6px 10px;
+        font-size: 16px;
+    }
+
+    .quantity-input {
+        width: 50px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+    .cart-item-image {
+        width: 150px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .cart-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .cart-item-name,
+    .cart-item-price {
+        font-size: 14px;
+    }
+
+    .quantity-selector {
+        gap: 5px;
+    }
+
+    .quantity-button {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+
+    .quantity-input {
+        width: 45px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}

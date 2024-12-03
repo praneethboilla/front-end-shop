@@ -1,0 +1,125 @@
+.product-Page h1 {
+    text-align: center;
+    margin: 20px 0; 
+}
+
+/* Category Section */
+.productContainer {
+    margin: 20px auto;
+    padding: 10px;
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subHeading {
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+    color: #333;
+    text-transform: capitalize;
+}
+
+/* Product List Styling */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 20px;
+    background-color:  white;
+}
+
+.product-item {
+    background-color:  #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Product Image Styling */
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Product Description Styling */
+.product-disc h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #333;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.product-disc p {
+    font-size: 1rem;
+    color: #007BFF;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Loading and Error Messages */
+div {
+    text-align: center;
+}
+
+div.loading,
+div.error {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+div.error {
+    color: red;
+}
+
+/* Additional Responsive Design */
+@media (max-width: 768px) {
+    .product-list {
+        justify-content: center;
+    }
+
+    .product-item {
+        width: 90%;
+    }
+}
+
+/* Category Select Box Styling */
+.category-select {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-option {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.category-option:hover {
+    background-color: #e0e0e0;
+}
+
+.category-option.active {
+    background-color: #007BFF;
+    color: white;
+}
+
