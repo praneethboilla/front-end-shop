@@ -26,8 +26,15 @@ function Card() {
       });
   };
 
-  const addToCart = (product) => {
-    navigate('/cart', { state: { product } })
+  const addToCart = (productId) => {
+    fetch('/cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: productId, quantity : 1 })
+    })
+    .then(res => res.json())
+    .then(navigate('/cart'))
+    .catch(err => setError(err,'Error in adding product to cart'));
   }
 
   useEffect(() => {
@@ -55,7 +62,7 @@ function Card() {
               <div className="product-footer">
                 <h2>{product.name}</h2>
                 <p className="product-price">${product.price}</p>
-                <button onClick={() => addToCart(product)}>Add to cart</button>
+                <button onClick={() => addToCart(product._id)}>Add to cart</button>
               </div>
             </li>
           ))}

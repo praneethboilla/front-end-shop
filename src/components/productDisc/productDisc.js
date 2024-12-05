@@ -14,8 +14,17 @@ const ProductDisc = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const handleCart = (product) => {
-    navigate('/cart', { state: { product } })
+  const addToCart = (productId) => {
+    fetch('/cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: productId, quantity : 1 })
+    })
+    .then(res => res.json())
+    .then(navigate('/cart'))
+    .catch(err => {
+      console.error("Error in adding product to cart", err);
+    });
   }
 
   return (
@@ -35,7 +44,7 @@ const ProductDisc = () => {
           {isExpanded ? 'Show Less' : 'Show More'}
         </p>
         <div className="buttons-container">
-          <button className="addToCartBtn" onClick={() => handleCart(data.product)}>Add to Cart</button>
+          <button className="addToCartBtn" onClick={() => addToCart(data.product._id)}>Add to Cart</button>
           <button className="buyNowBtn">Buy Now</button>
         </div>
       </div>
