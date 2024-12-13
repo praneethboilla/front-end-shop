@@ -23,7 +23,7 @@ function Navbar() {
       <ul className={`navbar-links ${isMenuOpen ? 'show' : ''}`}>
         <li>
           <NavLink 
-            to="/" 
+            to="/home" 
             className={({ isActive }) => isActive ? 'active-link' : ''}
           >
             Home

@@ -25,7 +25,7 @@
 /* Image style */
 .cart-item-image {
     width: 300px;
-    height: 150px;
+    height: 125px;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -34,14 +34,21 @@
 .cart-item-details {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    padding-top: 10px;
-    /* Takes available space next to the image */
+    padding-top: 5px;
+    width: 300px;
 }
 
 .cart-item-name {
     font-size: 18px;
+    color: rgb(59, 59, 222);
     font-weight: bold;
+    align-self: flex-start;
+}
+
+.cart-item-category {
+    font-size: 16px;
+    font-weight: bold;
+    align-self: flex-start;
 }
 
 .cart-item-price {
@@ -96,7 +103,7 @@
 }
 
 /* Button for placing the order */
-button {
+.orderButton {
     padding: 12px 20px;
     font-size: 16px;
     background-color: #4caf50;
@@ -105,35 +112,37 @@ button {
     border-radius: 5px;
     cursor: pointer;
     width: 200px;
-    /* Fixed width for the order button */
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.deleteButton {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: crimson;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #5e5e5e;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .cart-container {
         padding: 15px;
-        /* flex-direction: column; */
-        /* Stack the items vertically on smaller screens */
-        /* align-items: stretch; */
-        /* Stretch items to fit container width */
     }
 
     .cart-item {
         flex-direction: column;
-        align-items: center;
         gap: 10px;
         text-align: center;
         /* Center text in smaller layouts */
-    }
-
-    .cart-item-details {
-        align-items: center;
-        /* Center the name and price under image */
     }
 
     .quantity-selector {
@@ -150,16 +159,18 @@ button:hover {
         width: 50px;
     }
 
-    button {
+    .orderButton {
         font-size: 14px;
+        margin-bottom: 20px;
     }
+
     .cart-item-image {
         width: 150px;
         height: 80px;
         object-fit: cover;
         border-radius: 8px;
     }
-    
+
 }
 
 @media (max-width: 480px) {
@@ -176,23 +187,44 @@ button:hover {
 
     .cart-item-name,
     .cart-item-price {
+        align-self: center;
         font-size: 14px;
     }
 
+    .cart-item-category {
+        font-size: 12px;
+        align-self: center;
+    }
+
     .quantity-selector {
+        margin-top: 5px;
         gap: 5px;
     }
 
     .quantity-button {
+        width: 30px;
+        height: 30px;
         padding: 6px 8px;
         font-size: 14px;
     }
 
     .quantity-input {
-        width: 45px;
+        width: 30px;
     }
 
-    button {
-        font-size: 14px;
+    .orderButton {
+        margin-bottom: 20px;
+    }
+
+    .deleteButton {
+        padding: 12px 20px;
+        font-size: 10px;
+        background-color: crimson;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 75px;
+        transition: background-color 0.3s;
     }
 }

@@ -27,9 +27,17 @@ function Card() {
   };
 
   const addToCart = (productId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('Authentication failed: Token is missing');
+      return;
+    }
     fetch('/cart', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': `Bearer ${token}`, 
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ productId: productId, quantity : 1 })
     })
     .then(res => res.json())
