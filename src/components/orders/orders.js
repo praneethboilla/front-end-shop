@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import "./orders.css";
+import Spinner from '../utility/loader/spinner';
 
 function Orders() {
     const [orders, setOrders] = useState([]);
@@ -7,9 +8,21 @@ function Orders() {
     const [loading, setLoading] = useState(true);
 
     const getOrders = useCallback(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setError('Authentication failed: Token is missing');
+          setLoading(false);
+          return;
+      }
         setLoading(true);
         setError(null);
-        fetch('/orders')
+        fetch('/orders', {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${token}`, 
+              'Content-Type': 'application/json'
+            },
+          })
             .then(result => result.json())
             .then(data => {
                 console.log("data", data)
@@ -41,7 +54,7 @@ function Orders() {
             {error && <p className="order-error-message">{error}</p>}
 
             {loading ? (
-                <p>Loading Orders...</p>
+                <Spinner/>
             ) : orders.length === 0 ? (
                 <p>No orders found.</p>
             ) : (

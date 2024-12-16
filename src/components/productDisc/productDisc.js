@@ -22,7 +22,7 @@ const ProductDisc = () => {
   const addToCart = (productId) => {
     const token = localStorage.getItem('token');
     if (!token) {
-      setError('Authentication failed: Token is missing');
+      setError('Authentication failed: Token is missing or login');
       return;
     }
     setIsLoading(true); // Show loading spinner

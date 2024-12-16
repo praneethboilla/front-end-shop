@@ -8,7 +8,7 @@
 }
 
 .form-container {
-    background-color: white;
+    background-color: #fd7014;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -70,9 +70,9 @@ input {
     transition: background-color 0.3s ease;
 }
 
-.signup-button:hover {
+/* .signup-button:hover {
     background-color: #0056b3;
-}
+} */
 
 /* Signup link styling */
 .signup-option {

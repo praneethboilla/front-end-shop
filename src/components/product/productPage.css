@@ -76,6 +76,7 @@ div {
 
 div.loading,
 div.error {
+    padding-top: 10px;
     font-size: 1.2rem;
     color: #333;
 }

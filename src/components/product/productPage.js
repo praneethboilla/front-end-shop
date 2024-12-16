@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './productPage.css';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../utility/loader/spinner';
 
 function ProductPage() {
     const navigate = useNavigate();
     const [groupedProducts, setGroupedProducts] = useState({});
+    const [filteredProducts, setFilteredProducts] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -13,6 +15,7 @@ function ProductPage() {
         fetch('/products')
             .then(result => result.json())
             .then(data => {
+                // Group products by category
                 const products = data.products.reduce((acc, product) => {
                     if (!acc[product.category]) {
                         acc[product.category] = [];
@@ -21,6 +24,7 @@ function ProductPage() {
                     return acc;
                 }, {});
                 setGroupedProducts(products);
+                setFilteredProducts(products); // Initially show all products
             })
             .catch(err => {
                 setError('Error fetching products: ' + err.message);
@@ -30,26 +34,32 @@ function ProductPage() {
             });
     }, []);
 
-    // Filter products based on selected category
-    const filterProducts = () => {
+    // Update filtered products based on selected category
+    const filterProductsByCategory = useCallback(() => {
         if (selectedCategory === 'all') {
-            return groupedProducts; 
+            setFilteredProducts(groupedProducts);
+        } else {
+            setFilteredProducts({ [selectedCategory]: groupedProducts[selectedCategory] });
         }
-        return { [selectedCategory]: groupedProducts[selectedCategory] }; // Show only selected category
-    };
+    }, [selectedCategory, groupedProducts]);
+
+    // Use useEffect to filter products when category changes
+    useEffect(() => {
+        filterProductsByCategory();
+    }, [selectedCategory, filterProductsByCategory]);
 
     const categories = Object.keys(groupedProducts);
 
     const productOpen = (product) => {
-        navigate('/productDisc', { state: { product } })
-    }
+        navigate('/productDisc', { state: { product } });
+    };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return   <Spinner/>// You can enhance the loading experience with a spinner or animation
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div className="error">Error: {error}</div>;
     }
 
     return (
@@ -73,11 +83,11 @@ function ProductPage() {
                 ))}
             </div>
             {/* Displaying Filtered Products */}
-            {Object.keys(filterProducts()).map(category => (
+            {Object.keys(filteredProducts).map(category => (
                 <div key={category} className='productContainer'>
                     <h2 className='subHeading'>{category}</h2>
                     <div className="product-list">
-                        {filterProducts()[category].map(product => (
+                        {filteredProducts[category].map(product => (
                             <div key={product._id} className="product-item"
                                 onClick={() => productOpen(product)}
                             >

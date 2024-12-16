@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import './cart.css';
+import Spinner from '../utility/loader/spinner';
+import Check from '../utility/splash/check';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -14,11 +16,11 @@ const Cart = () => {
       setError('Authentication failed: Token is missing');
       setIsLoading(false);
       return;
-  }
+    }
     fetch("/cart", {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${token}`, 
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
     })
@@ -68,7 +70,7 @@ const Cart = () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ quantity: newQuantity })
     })
@@ -102,12 +104,12 @@ const Cart = () => {
       setError('Authentication failed: Token is missing');
       setIsLoading(false);
       return;
-  }
+    }
     fetch(`/cart/${productId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 
+        'Authorization': `Bearer ${token}`,
       },
     })
       .then(response => {
@@ -138,29 +140,41 @@ const Cart = () => {
         quantity: item.quantity
       }))
     };
-
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('Authentication failed: Token is missing');
+      setIsLoading(false);
+      return;
+    }
     fetch("/orders", {
       method: "POST",
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify(orderData)
     })
-    .then(res => {
-      if(!res.ok){
-        throw new Error('Failed to place Order')
-      }
-      return res.json();
-    })
-    .then(json => {
-      setOrderSuccess(true);
-      clearCart() 
-      setCart([]);
-      setError('')
-    })
-    .catch(err => {
-      setError('Error placing order');
-      console.error(err);
-    })
-    .finally(() => setIsLoading(false));
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Failed to place Order')
+        }
+        return res.json();
+      })
+      .then(json => {
+        setOrderSuccess(true);
+        clearCart()
+        setCart([]);
+        setError('')
+        setTimeout(() => {
+          setOrderSuccess(false);
+          setCart([]);
+        }, 3000);
+      })
+      .catch(err => {
+        setError('Error placing order');
+        console.error(err);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   function clearCart() {
@@ -169,32 +183,36 @@ const Cart = () => {
       setError('Authentication failed: Token is missing');
       setIsLoading(false);
       return;
-  }
+    }
     fetch('/cart', {
-        method: 'DELETE', 
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, 
-        },
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     })
-    .then(response => {
+      .then(response => {
         if (!response.ok) {
-            throw new Error('Failed to clear the cart');
+          throw new Error('Failed to clear the cart');
         }
-        return response.json(); 
-    })
-    .catch(error => {
-        console.error('Error:', error);  
-    });
-}
+        return response.json();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
 
   return (
     <div>
       <h2 className="cart-name">Cart</h2>
-      {isLoading && <div>Loading...</div>}
-
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
+      {isLoading &&
+      <Spinner/>  
+      }
+      {orderSuccess &&
+        <Check/>
+      }
+      {cart.length === 0 && !isLoading && !orderSuccess ? (
+        <p style={{ paddingTop: "20px", fontSize: '19px' }}>Your cart is empty.</p>
       ) : (
         cart.map(item => (
           <div key={item.product._id} className="cart-container">
@@ -244,14 +262,12 @@ const Cart = () => {
       {cart.length > 0 && (
         <div>
           <h3 style={{ padding: "10px" }}>Total Price: ${calculateTotalPrice()}</h3>
-          <button className='orderButton' onClick={() =>  handlePlaceOrder()}>Place Order</button>
+          <button className='orderButton' onClick={() => handlePlaceOrder()}>Place Order</button>
         </div>
       )}
-      {orderSuccess && <p>Your order has been successfully placed!</p>}
     </div>
   );
 };
 
 export default Cart;
 //
-

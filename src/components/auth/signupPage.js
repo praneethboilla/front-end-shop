@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './authStyle.css';
+import logo from "../../resources/cropLogo.png"
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ const Signup = () => {
   return (
     <div className="container-log">
       <div className="form-container">
+         <img src={logo} alt='logo' width={275} height={50} />
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit} className='form'>
           <input

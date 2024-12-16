@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './card.css';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../utility/loader/spinner';
 
 function Card() {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ function Card() {
       <h1>Popular Stickers</h1>
       {error && <p className="error-message">{error}</p>}
       {products.length === 0 && !error ? (
-        <p>Loading products...</p>
+        <Spinner/>
       ) : (
         <ul>
           {products.map(product => (

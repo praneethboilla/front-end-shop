@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Carousel.css'; 
+import Spinner from '../utility/loader/spinner';
 
 const Carousel = () => {
     const [images, setImages] = useState([]);
@@ -31,7 +32,7 @@ const Carousel = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Spinner/>
     }
     return (
         <div className="carousel-container">

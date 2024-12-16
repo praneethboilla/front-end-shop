@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';  
 import './navbar.css';
+import logo from "../../resources/cropLogo.png"
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +13,8 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <h2>Grab Stickers</h2>
+        {/* <h2>Grab Stickers</h2> */}
+         <img src={logo} alt='logo' width={275} height={50}/>
       </div>
       <div className={`navbar-toggle ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
         <div></div>
