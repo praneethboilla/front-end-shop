@@ -10,7 +10,7 @@ const Carousel = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("/products")
+        fetch("/products/random")
             .then(res => res.json())
             .then(json => {
                 setImages(json.products.slice(1,5));

@@ -13,6 +13,7 @@
 }
 
 .cart-name {
+    text-align: center;
     margin-top: 10px;
 }
 
@@ -130,6 +131,10 @@
 
 button:hover {
     background-color: #5e5e5e;
+}
+
+.total_place{
+    text-align: center;
 }
 
 /* Responsive Design */

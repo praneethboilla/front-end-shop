@@ -1,126 +1,181 @@
-.product-Page h1 {
-    text-align: center;
-    margin: 20px 0; 
-}
-
-/* Category Section */
-.productContainer {
-    margin: 20px auto;
-    padding: 10px;
-    width: 90%;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.subHeading {
-    font-size: 1.75rem;
-    margin-bottom: 10px;
-    color: #333;
-    text-transform: capitalize;
-}
-
-/* Product List Styling */
-.product-list {
+/* Main container for the page */
+.products_page_container {
     display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    gap: 20px;
-    background-color:  white;
+    flex-direction: column;
+    padding: 20px;
+    overflow-x: hidden; /* Prevent horizontal overflow of the entire page */
 }
 
-.product-item {
-    background-color:  #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 250px;
+/* Heading style */
+.product_heading {
     text-align: center;
-    padding: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Product Image Styling */
-.product-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-}
-
-/* Product Description Styling */
-.product-disc h3 {
-    font-size: 1.2rem;
-    margin: 10px 0;
-    color: #333;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.product-disc p {
-    font-size: 1rem;
-    color: #007BFF;
-    margin: 10px 0;
-    font-weight: bold;
-}
-
-/* Loading and Error Messages */
-div {
-    text-align: center;
-}
-
-div.loading,
-div.error {
-    padding-top: 10px;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-div.error {
-    color: red;
-}
-
-/* Additional Responsive Design */
-@media (max-width: 768px) {
-    .product-list {
-        justify-content: center;
-    }
-
-    .product-item {
-        width: 90%;
-    }
-}
-
-/* Category Select Box Styling */
-.category-select {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
     margin-bottom: 20px;
 }
 
-.category-option {
-    padding: 10px 20px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
+/* Container for category selection */
+.category-select {
+    display: flex;
+    flex-direction: row;  /* Make categories appear in a row */
+    overflow-x: auto;  /* Allow horizontal scrolling if categories overflow */
+    padding: 10px 0;
+    gap: 15px; /* Space between the categories */
+    width: 100%;
+    white-space: nowrap; /* Prevent categories from wrapping to the next line */
+}
+
+.category-select div {
     cursor: pointer;
-    font-size: 1rem;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /* Prevent text from wrapping within categories */
+}
+
+/* Style for category buttons */
+.category-item {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
     text-align: center;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.category-option:hover {
-    background-color: #e0e0e0;
-}
-
-.category-option.active {
-    background-color: #007BFF;
+/* Style for selected category */
+.category-item.selected {
+    background-color: #FF6347;
+    transition: background-color 0.3s ease;
     color: white;
 }
+
+/* Hover effect for unselected categories */
+.category-item:hover {
+    background-color: #ff6347c7; /* A lighter color for hover effect */
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+/* Container for all product categories */
+.products_all_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Category heading */
+.category_heading {
+    font-size: 24px;
+    margin: 5px ;
+}
+
+/* Horizontal list of products in each category */
+.products_horizontal_container {
+    display: flex;
+    flex-wrap: wrap; /* Allow products to wrap to the next line if space is insufficient */
+    justify-content: flex-start; /* Start products from the left */
+    gap: 1px; /* Space between product items */
+    /* padding: 10px; */
+    width: 100%;
+}
+
+/* Product list container */
+.category_list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 225px; /* Fixed width for each product */
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+/* Hover effect on product */
+.category_list:hover {
+    transform: translateY(-5px);
+    background-color: #ddd;
+}
+
+/* Product image */
+.product_page_image {
+    width: 100%;  /* Make the image take up the full width of the product container */
+    height: 150px; /* Set a fixed height for consistency */
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+/* Product name */
+.product_price {
+    font-size: 14px;
+    font-weight: bold;
+    color: green;
+}
+
+.product_name {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .product_page_image {
+        height: 180px;  /* Slightly larger for tablet screens */
+    }
+
+    .category_list {
+        width: 220px;  /* Slightly smaller product width for tablets */
+    }
+
+    .category-select {
+        gap: 10px; /* Adjust space between categories for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .product_page_image {
+        height: 160px;  /* Larger image for small tablets */
+    }
+
+    .category_list {
+        width: 160px;  /* Smaller product width for small tablets */
+    }
+
+    .category-select {
+        gap: 8px;  /* Adjust space between categories for better fit */
+    }
+
+    .products_horizontal_container {
+        justify-content: flex-start; /* Center products for better alignment */
+    }
+}
+
+@media (max-width: 480px) {
+    .product_page_image {
+        height: 140px;  /* Bigger image for mobile screens */
+    }
+    
+    .category_list {
+        width: 135px;  /* Full width for mobile */
+        padding: 5px; /* Adjust padding for mobile screens */
+    }
+
+    .category-select {
+        gap: 5px; /* Adjust space between categories for smaller mobile screens */
+        padding: 5px;  /* Adjust padding for smaller screens */
+    }
+
+    .products_horizontal_container {
+        gap: 10px; /* Smaller gap between product items */
+    }
+}
+
+/*  */
 

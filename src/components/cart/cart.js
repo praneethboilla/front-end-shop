@@ -203,7 +203,7 @@ const Cart = () => {
   }
 
   return (
-    <div>
+    <div className='cart_page_container'>
       <h2 className="cart-name">Cart</h2>
       {isLoading &&
       <Spinner/>  
@@ -260,7 +260,7 @@ const Cart = () => {
         ))
       )}
       {cart.length > 0 && (
-        <div>
+        <div className='total_place'>
           <h3 style={{ padding: "10px" }}>Total Price: ${calculateTotalPrice()}</h3>
           <button className='orderButton' onClick={() => handlePlaceOrder()}>Place Order</button>
         </div>

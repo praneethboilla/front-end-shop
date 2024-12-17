@@ -55,6 +55,28 @@
   padding: 5px 0; /* Adds padding to highlight active link */
 }
 
+.login {
+  cursor: pointer;
+  color: #fff; /* You can adjust the color and styles */
+  font-size: 18px;
+}
+
+.login:hover {
+   color: #4CAF50;
+  text-decoration: underline;
+}
+
+
+.logout {
+  cursor: pointer;
+  color: #fff; /* You can adjust the color and styles */
+  font-size: 18px;
+}
+.logout:hover {
+  color: red;
+  text-decoration: underline;
+}
+
 /* Responsive Design for smaller screens */
 @media (max-width: 768px) {
   .navbar {

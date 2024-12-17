@@ -13,7 +13,7 @@ function Card() {
   }
 
   const getProducts = () => {
-    fetch("/products")
+    fetch("/products/random")
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch products');
