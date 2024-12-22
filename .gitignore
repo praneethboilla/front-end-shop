@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Ignore all JSON files
+*.json
+
+# Except this specific file
+!package.json
