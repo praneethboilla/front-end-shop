@@ -39,10 +39,12 @@ function Card() {
         'Authorization': `Bearer ${token}`, 
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ productId: productId, quantity : 1 })
+      body: JSON.stringify({ productId , quantity : 1 })
     })
     .then(res => res.json())
-    .then(navigate('/cart'))
+    .then(() => {
+      navigate('/cart');
+    })
     .catch(err => setError(err,'Error in adding product to cart'));
   }
 

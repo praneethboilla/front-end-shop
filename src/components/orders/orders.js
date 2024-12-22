@@ -1,60 +1,31 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import "./orders.css";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrders } from '../../store/orderSlice';
+import './orders.css';
 import Spinner from '../utility/loader/spinner';
 
 function Orders() {
-    const [orders, setOrders] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    const getOrders = useCallback(() => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          setError('Authentication failed: Token is missing');
-          setLoading(false);
-          return;
-      }
-        setLoading(true);
-        setError(null);
-        fetch('/orders', {
-            method: "GET",
-            headers: {
-              'Authorization': `Bearer ${token}`, 
-              'Content-Type': 'application/json'
-            },
-          })
-            .then(result => result.json())
-            .then(data => {
-                console.log("data", data)
-                setOrders(data.orders);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Error fetching orders:", err);
-                setError("Failed to load orders. Please try again later.");
-                setLoading(false);
-            });
-    }, []);
-
-    console.log("orders", orders)
+    const dispatch = useDispatch();
+    const { orders, loading, error } = useSelector(state => state.orders);
 
     useEffect(() => {
-        getOrders();
-    }, [getOrders]);
+        dispatch(fetchOrders()); 
+    }, [dispatch]);
 
     const calculateOrderTotal = (products) => {
         return products.reduce((total, productItem) => {
             const productTotal = productItem.quantity * productItem.product.price;
             return total + productTotal;
-        }, 0).toFixed(2); // Round to 2 decimal places
+        }, 0).toFixed(2); 
     };
+
     return (
         <div className='orders-container'>
             <h1>My Orders</h1>
             {error && <p className="order-error-message">{error}</p>}
 
             {loading ? (
-                <Spinner/>
+                <Spinner />
             ) : orders.length === 0 ? (
                 <p>No orders found.</p>
             ) : (
@@ -89,4 +60,4 @@ function Orders() {
 }
 
 export default Orders;
-// 
+//

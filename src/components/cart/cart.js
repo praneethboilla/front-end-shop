@@ -1,87 +1,26 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './cart.css';
 import Spinner from '../utility/loader/spinner';
 import Check from '../utility/splash/check';
+import { fetchCart, updateQuantity, deleteItem, clearCart } from '../../store/cartSlice';
+import { placeOrder } from '../../store/orderSlice'
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [orderSuccess, setOrderSuccess] = useState(false);
+  const [ orderSuccess, setOrderSuccess] = useState(false)
+  const dispatch = useDispatch();
+  const { cart, isLoading, error } = useSelector(state => state.cart);
 
   useEffect(() => {
-    setIsLoading(true);
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setError('Authentication failed: Token is missing');
-      setIsLoading(false);
-      return;
-    }
-    fetch("/cart", {
-      method: "GET",
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to fetch cart');
-        }
-        return res.json();
-      })
-      .then(json => {
-        if (json.products && json.products.length > 0) {
-          setCart(json.products);
-        } else {
-          setCart([]);
-        }
-      })
-      .catch(err => {
-        setError('Error fetching cart');
-        console.error(err);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+      dispatch(fetchCart());
+  }, [dispatch]);
 
-
-
-  // Using useCallback to memoize handleQuantityChange function
   const handleQuantityChange = useCallback((productId, newQuantity) => {
     if (newQuantity < 1 || newQuantity > 10) {
-      setError('Quantity must be between 1 and 10');
-      return;
+      return; // Optionally, set an error if needed
     }
-    setError('');
-
-    // Update the cart UI
-    const updatedCart = cart.map(item =>
-      item.product._id === productId ? { ...item, quantity: newQuantity } : item
-    );
-    setCart(updatedCart);
-    setIsLoading(true);
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setError('Authentication failed: Token is missing');
-      setIsLoading(false);
-      return;
-    }
-    fetch(`/cart/${productId}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({ quantity: newQuantity })
-    })
-      .then(res => res.json())
-      .catch(err => {
-        setError('Error updating quantity');
-        console.error(err);
-        setCart(cart); // Revert cart if API fails
-      })
-      .finally(() => setIsLoading(false));
-  }, [cart]);
+    dispatch(updateQuantity({ productId, quantity: newQuantity }));
+  }, [dispatch]);
 
   const handleIncrease = useCallback((productId, quantity) => {
     if (quantity < 10) {
@@ -95,124 +34,44 @@ const Cart = () => {
     }
   }, [handleQuantityChange]);
 
-
-
   const handleDelete = useCallback((productId) => {
-    setIsLoading(true);
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setError('Authentication failed: Token is missing');
-      setIsLoading(false);
-      return;
-    }
-    fetch(`/cart/${productId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          setCart(prevCart => prevCart.filter(item => item.product._id !== productId));
-          setError('');
-        } else {
-          setError('Failed to delete product');
-        }
-      })
-      .catch(error => {
-        setError('Error occurred during delete');
-        console.error('Error during delete:', error);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+    dispatch(deleteItem(productId));
+  }, [dispatch]);
 
-  // Using useCallback to memoize total price calculation
   const calculateTotalPrice = useCallback(() => {
     return cart.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
   }, [cart]);
 
   const handlePlaceOrder = () => {
-    setIsLoading(true);
     const orderData = {
       products: cart.map(item => ({
         productId: item.product._id,
         quantity: item.quantity
       }))
     };
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setError('Authentication failed: Token is missing');
-      setIsLoading(false);
-      return;
-    }
-    fetch("/orders", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(orderData)
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Failed to place Order')
-        }
-        return res.json();
-      })
-      .then(json => {
-        setOrderSuccess(true);
-        clearCart()
-        setCart([]);
-        setError('')
-        setTimeout(() => {
-          setOrderSuccess(false);
-          setCart([]);
-        }, 3000);
-      })
-      .catch(err => {
-        setError('Error placing order');
-        console.error(err);
-      })
-      .finally(() => setIsLoading(false));
-  };
 
-  function clearCart() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setError('Authentication failed: Token is missing');
-      setIsLoading(false);
-      return;
-    }
-    fetch('/cart', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to clear the cart');
-        }
-        return response.json();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }
+    // Dispatch the placeOrder action
+    dispatch(placeOrder(orderData)).then((response) => {
+      setOrderSuccess(true);
+      dispatch(clearCart()); // Clear the cart after successful order
+    }).catch(err => {
+      console.error("Order placement failed:", err);
+    });
+  };
 
   return (
     <div className='cart_page_container'>
       <h2 className="cart-name">Cart</h2>
       {isLoading &&
-      <Spinner/>  
+        <Spinner />
       }
       {orderSuccess &&
-        <Check/>
+        <Check />
       }
       {cart.length === 0 && !isLoading && !orderSuccess ? (
-        <p style={{ paddingTop: "20px", fontSize: '19px' }}>Your cart is empty.</p>
+        <div style={{ paddingTop: "20px" }}>
+          <p style={{ fontSize: '19px', justifySelf: 'center' }}>Your cart is empty.</p>
+        </div>
       ) : (
         cart.map(item => (
           <div key={item.product._id} className="cart-container">
